@@ -6,12 +6,15 @@
     width: 100vw;
     height: fit-content;
  }  */
+
+ @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Space+Grotesk:wght@300..700&display=swap');
+
   
   #root {
     background-color: #0C1A11;
-    max-width: 1280px;
+    font-family: "Space Grotesk";
     width: 100vw;
-    margin: 0 auto;
     text-align: center;
   }
   
@@ -50,9 +53,11 @@
 
   .grad {
     /* background: linear-gradient(to right, rgba(43, 255, 255, 0.12) 0%, rgba(43, 255, 255, 0.4) 50%, rgba(43, 255, 255, 0.7) 100%); */
-    border: 1px solid #2BFFFF ;
+    /* border: 1px solid #2BFFFF ; */
+    border-image: linear-gradient(rgba(43, 255, 255, 0.32), rgba(43, 255, 255, 0.1), rgba(43, 255, 255, 0.16)) 1;
     /* border-color: linear-gradient(to right, rgba(43, 255, 255, 0.32) 0%, rgba(43, 255, 255, 0.10) 50%, rgba(43, 255, 255, 0.16) 100%); */
-    background: linear-gradient(to right, rgba(43, 255, 255, 0.32) 0%, rgba(43, 255, 255, 0.10) 50%, rgba(43, 255, 255, 0.16) 100%);
+    /* background: linear-gradient(rgba(43, 255, 255, 0.32), rgba(43, 255, 255, 0.10) , rgba(43, 255, 255, 0.16) ); */
+    background-image: linear-gradient(rgba(43, 255, 255, 0.12) , rgba(43, 255, 255, 0.04) , rgba(43, 255, 255, 0.07));
     
   }
   

@@ -1,4 +1,3 @@
-import React from 'react'
 import Image from '../assets/Monkey-mage.png';
 
 const HeroSection = () => {
@@ -16,7 +15,7 @@ const HeroSection = () => {
         <button className="mt-4 px-4 py-2 bg-[#02C173] text-white rounded">Explore</button>
       </div>
       <div>
-        <img src={Image} alt="Monkey with headphones" className="w-98 h-98 rounded-full p-4" />
+        <img src={Image} alt="Monkey with headphones" className="w-3/5 h-auto rounded-full p-4" />
       </div>
     </div>
   )
