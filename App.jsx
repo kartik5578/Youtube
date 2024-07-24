@@ -2,9 +2,9 @@ import React from 'react';
 import './App.css'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Homepage from './src/Pages/Homepage'
-import Footer from './src/components/Footer';
 import NavBar from './src/components/Navbar';
 import Channels from './src/Pages/Channels';
+import Profile from './src/Pages/Profile';
 
 
 function App() {
@@ -17,7 +17,9 @@ function App() {
      
         <Route path="/" element={<Homepage/>}></Route>
         <Route path="/Channels" element={<Channels/>}></Route>
-        {/* <Route path="/profile" component={Profile} /> */}
+        <Route path='/Profile' element={<Profile/>}></Route>
+        {/* <Route path="/ProfilePage" element={<ProfilePage/>}></Route> */}
+        
     
     </Routes>
     </BrowserRouter>
