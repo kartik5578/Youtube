@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { ChatState } from '../../Context/ChatProvider'
-import { Box, effect, FormControl, IconButton, Input, Spinner, Text, useToast } from '@chakra-ui/react';
+import { Box, Button, effect, flexbox, FormControl, IconButton, Input, Spinner, Text, useToast } from '@chakra-ui/react';
 import { ArrowBackIcon } from '@chakra-ui/icons';
 import { getSender, getSenderFull } from '../../Config/Chatlogics';
 import ProfileModal from './ProfileModal';
@@ -10,6 +10,7 @@ import ScrollableChat from './ScrollableChat';
 import io from 'socket.io-client'
 import Lottie from 'react-lottie'
 import animationData from "../../animations/typing.json"
+import ContractFormModal from './ContractFormModal';
 
 const ENDPOINT = "http://localhost:5000";
 var socket,selectedChatCompare;
@@ -200,7 +201,11 @@ function SingleChat({fetchAgain,setFetchAgain}) {
                 <ScrollableChat message={message} />
                 </div>}
 
-            <FormControl onKeyDown={sendMessage} isRequired mt={3} >
+
+            
+
+            <FormControl onKeyDown={sendMessage} isRequired mt={3}>
+           
             {isTyping?<div>
                 <Lottie
                  options={defaultOptions}
@@ -208,13 +213,23 @@ function SingleChat({fetchAgain,setFetchAgain}) {
                  style={{marginBottom: 15, marginLeft: 0}}
                 />
             </div>:<></>}
-                <Input 
+
+            <Box display={'flex'} gap={3}>
+            
+            <ContractFormModal children={ <Button px={10} backgroundColor={'green'} textColor={'white'} _hover={{ bg: "blue.500" }}>
+                Make Ad Contract</Button>  }>
+
+            </ContractFormModal>
+           
+            <Input 
                 variant={'filled'}  
                 background={"#E0E0E0"}
                 placeholder='Enter a message..'
                 onChange={typingHandler}
                 value={newMessage}
                 />
+            </Box>
+                
             </FormControl>
         </Box>
 

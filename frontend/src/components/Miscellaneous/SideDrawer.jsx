@@ -116,7 +116,7 @@ function SideDrawer() {
 
   return (
     <>
-      {/* <Box
+      <Box
         display="flex"
         justifyContent="space-between"
         alignItems="center"
@@ -174,7 +174,7 @@ function SideDrawer() {
             </MenuList>
           </Menu>
         </div>
-      </Box> */}
+      </Box>
 
       <Drawer
         placement="left"
