@@ -13,6 +13,8 @@ function Navbr() {
         try {
           const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
           setAccount(accounts[0]);
+
+          
         } catch (error) {
           console.error("Error connecting wallet:", error);
         }
