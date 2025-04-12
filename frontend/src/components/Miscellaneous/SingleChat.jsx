@@ -24,7 +24,7 @@ const defaultOptions = {
     }
 }
 
-function SingleChat({fetchAgain,setFetchAgain}) {
+function SingleChat({fetchAgain,setFetchAgain, setContractAddress, setVideos}) {
 
     useEffect(()=>{
         socket = io(ENDPOINT);
@@ -217,7 +217,7 @@ function SingleChat({fetchAgain,setFetchAgain}) {
             <Box display={'flex'} gap={3}>
             
             <ContractFormModal children={ <Button px={10} backgroundColor={'green'} textColor={'white'} _hover={{ bg: "blue.500" }}>
-                Make Ad Contract</Button>  }>
+                Make Ad Contract</Button>  } setContractAddress={setContractAddress} setVideos={setVideos} >
 
             </ContractFormModal>
            

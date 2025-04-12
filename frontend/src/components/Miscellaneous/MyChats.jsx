@@ -101,9 +101,7 @@ function MyChats({fetchAgain}) {
 
             </Box>
           ))}
-        </Stack> ):(<ChatLoading/>
-
-        )}
+        </Stack> ):(<ChatLoading/>)}
       </Box>
     </Box>
     </>
