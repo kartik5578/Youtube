@@ -5,6 +5,7 @@ import Homepage from "./pages/Homepage";
 import ChatPage from "./pages/ChatPage"
 import Home from "./pages/Home";
 import Navbr from "./components/Navbar/Navbr";
+import YoutuberInfo from "./pages/YoutuberInfo";
 
 
 
@@ -16,6 +17,7 @@ function App() {
        <Route path="/home" exact><Home/></Route>
       <Route path="/" exact><Homepage/></Route>
       <Route path="/chats" exact><ChatPage/></Route>
+      <Route path="/Channels" exact><YoutuberInfo/></Route>
     </div>
     // </Router>
   );

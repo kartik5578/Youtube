@@ -14,7 +14,7 @@ function Navbr() {
           const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
           setAccount(accounts[0]);
 
-          
+
         } catch (error) {
           console.error("Error connecting wallet:", error);
         }
@@ -35,7 +35,7 @@ function Navbr() {
     <img src={Image} alt='Logo' className='w-[168px] py-5'/>
     <div className="navlst space-x-4 text-custom-text font-thin leading-loose">
       <Link to="/home" className="" as={Link}>Home</Link>
-      <Link to="/Channels" className="">YouTube Channels</Link>
+      <Link to="/Channels" className="" >YouTube Channels</Link>
       <Link to="/chats" className="">Chat</Link>
       <Link to="/Profile" className="">Profiles</Link>
       <Button color={'white'} backgroundColor={'green'} onClick={connectWallet}>

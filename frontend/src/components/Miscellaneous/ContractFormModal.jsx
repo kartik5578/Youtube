@@ -18,7 +18,7 @@ import { deployContract } from '../../Contract/deployContract';
 
 
 
-function ContractFormModal({children}) {
+function ContractFormModal({children, setContractAddress, setVideos}) {
     const { isOpen, onOpen, onClose } = useDisclosure()
 
     const [address, setAddress] = useState(0);
@@ -43,6 +43,17 @@ function ContractFormModal({children}) {
     try {
        const contractaddress = await deployContract(address,url,pricePerThousandViews,duration,deposit);
         console.log(contractaddress)
+        setContractAddress(contractaddress)
+
+        const obj = {
+            "url" : url,
+            "deposite": deposit,
+            "duration": duration,
+            "active": true
+        }
+
+        setVideos(obj)
+        
         toast({
             position: "top",
            title:"Contract Deployed Successfully",
