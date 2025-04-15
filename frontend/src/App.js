@@ -6,6 +6,8 @@ import ChatPage from "./pages/ChatPage"
 import Home from "./pages/Home";
 import Navbr from "./components/Navbar/Navbr";
 import YoutuberInfo from "./pages/YoutuberInfo";
+import ChannelList from "./pages/ChannelList";
+import LandingPage from "./pages/LandingPage";
 
 
 
@@ -14,10 +16,11 @@ function App() {
     // <Router>
     <div className="App">
         <Navbr/>
-       <Route path="/home" exact><Home/></Route>
+       {/* <Route path="/home" exact><Home/></Route> */}
+       <Route path="/home" exact><LandingPage/></Route>
       <Route path="/" exact><Homepage/></Route>
       <Route path="/chats" exact><ChatPage/></Route>
-      <Route path="/Channels" exact><YoutuberInfo/></Route>
+      <Route path="/Channels" exact><ChannelList/></Route>
     </div>
     // </Router>
   );

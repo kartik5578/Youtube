@@ -31,7 +31,7 @@ function Navbr() {
     };
 
   return (
-    <nav className="navbr flex justify-between items-center w-full px-4">
+    <nav className="navbr  flex justify-between items-center w-full px-4">
     <img src={Image} alt='Logo' className='w-[168px] py-5'/>
     <div className="navlst space-x-4 text-custom-text font-thin leading-loose">
       <Link to="/home" className="" as={Link}>Home</Link>
