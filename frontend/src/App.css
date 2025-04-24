@@ -36,6 +36,7 @@ span{
   display: flex;
   justify-content: space-around;
   align-items: center;
+  filter: "blur(10px)";
   padding: 5px 10px 5px 10px;
 }
 
