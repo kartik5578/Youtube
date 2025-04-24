@@ -12,17 +12,11 @@ import {
   Link,
 } from "@chakra-ui/react";
 import MonkeyImage from '../components/assets/Monkey-mage.png';
-import {
-  FaTwitter,
-  FaInstagram,
-  FaFacebookF,
-  FaTiktok,
-  FaDiscord,
-} from "react-icons/fa";
+
 
 const KoalaLandingPage = () => {
   return (
-    <Box  minH="100vh" color="white"  px={8} py={6}>
+    <Box  minH="100vh" bg="#0C1A11" color="white"  px={8} py={6}>
 
 
       {/* Main Content */}
