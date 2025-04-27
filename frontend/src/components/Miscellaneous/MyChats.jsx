@@ -95,15 +95,17 @@ function MyChats({fetchAgain}) {
             color={selectedChat === chat ? "white": "black"}
             >
 
-              <Text>
-                {!chat.isGroupedChat ? getSender(loggedUser, chat.users) : chat.chatName}
-              </Text>
+<Text>
+  {!chat.isGroupedChat ? (
+    <>{getSender(loggedUser, chat.users)}</>
+  ) : (
+    chat.chatName
+  )}
+</Text>
 
             </Box>
           ))}
-        </Stack> ):(<ChatLoading/>
-
-        )}
+        </Stack> ):(<ChatLoading/>)}
       </Box>
     </Box>
     </>

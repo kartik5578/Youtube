@@ -18,7 +18,7 @@ import { deployContract } from '../../Contract/deployContract';
 
 
 
-function ContractFormModal({children}) {
+function ContractFormModal({children, setContractAddress, setVideos}) {
     const { isOpen, onOpen, onClose } = useDisclosure()
 
     const [address, setAddress] = useState(0);
@@ -43,6 +43,17 @@ function ContractFormModal({children}) {
     try {
        const contractaddress = await deployContract(address,url,pricePerThousandViews,duration,deposit);
         console.log(contractaddress)
+        setContractAddress(contractaddress)
+
+        const obj = {
+            "url" : url,
+            "deposite": deposit,
+            "duration": duration,
+            "active": true
+        }
+
+        setVideos(obj)
+        
         toast({
             position: "top",
            title:"Contract Deployed Successfully",
@@ -70,9 +81,15 @@ function ContractFormModal({children}) {
         <>
           <span onClick={onOpen}>{children}</span>
     
-          <Modal isOpen={isOpen} onClose={onClose}>
+          <Modal isOpen={isOpen} onClose={onClose} isCentered>
             <ModalOverlay />
-            <ModalContent>
+            <ModalContent
+             bgGradient="linear(to-b,rgba(43, 255, 255, 0.12) 0%, rgba(43, 255, 255, 0.04) 50%, rgba(43, 255, 255, 0.07) 100%)"
+             borderRadius="2xl"
+             p={6}
+             boxShadow="lg"
+             color="green.900"
+            >
               <ModalHeader fontSize={'35px'} display={'flex'} justifyContent={'center'}>Create Ad Contract</ModalHeader>
               <ModalCloseButton />
               <ModalBody display={'flex'} 
@@ -80,28 +97,38 @@ function ContractFormModal({children}) {
               alignItems={'center'}
               >
                 <FormControl>
-                    <Input placeholder='Youtuber address' mb={3} onChange={(e)=> setAddress(e.target.value)} />
+                    <Input placeholder='Youtuber address'  border="1px solid #00AA66"
+                borderRadius="lg" mb={3} onChange={(e)=> setAddress(e.target.value)} />
                 </FormControl>
                 <FormControl>
                
-                    <Input placeholder='Youtube Video Link' mb={1} onChange={(e)=> setUrl(e.target.value)} />
+                    <Input placeholder='Youtube Video Link'  border="1px solid #00AA66"
+                borderRadius="lg" mb={1} onChange={(e)=> setUrl(e.target.value)} />
                 </FormControl>
                 <FormControl>
-                    <Input placeholder='1000 view Rate (ETH)' mb={3} onChange={(e)=> setPricePerThousandViews(e.target.value)} />
+                    <Input placeholder='1000 view Rate (ETH)'  border="1px solid #00AA66"
+                borderRadius="lg" mb={3} onChange={(e)=> setPricePerThousandViews(e.target.value)} />
                 </FormControl>
                 <FormControl>
-                    <Input placeholder='Duration (days)' mb={3} onChange={(e)=> setDuration(e.target.value)} />
+                    <Input placeholder='Duration (days)'  border="1px solid #00AA66"
+                borderRadius="lg" mb={3} onChange={(e)=> setDuration(e.target.value)} />
                 </FormControl>
                 <FormControl>
-                    <Input placeholder='Deposite(ETH)' mb={1} onChange={(e)=> setDeposit(e.target.value)} />
+                    <Input placeholder='Deposite(ETH)'  border="1px solid #00AA66"
+                borderRadius="lg" mb={1} onChange={(e)=> setDeposit(e.target.value)} />
                 </FormControl>
             
 
 
               </ModalBody>
     
-              <ModalFooter>
-                <Button  colorScheme='green' mr={1} onClick={handleSubmit}>
+              <ModalFooter display={"flex"} justifyContent={"center"} >
+                <Button  colorScheme='green' mr={1}  w="50%"
+              bg="#00AA66"
+              color="white"
+              borderRadius="2xl"
+              _hover={{ bg: '#009955' }}
+              onClick={handleSubmit}>
                   Create Contract
                 </Button>
 
