@@ -8,7 +8,7 @@ const getPlaylits= async(req,res)=>{
                 errro:"channelId is required"
             })
         }
-        const url = `${process.env.YOUTUBE_API_BASE_URL}channels?key=${process.env.YOUTUBE_API_KEY}&part=contentDetails,id,localizations,player,snippet,status&channelId=${data.channelId}&maxResults=50`
+        const url = `${process.env.YOUTUBE_API_BASE_URL}playlists?key=${process.env.YOUTUBE_API_KEY}&part=contentDetails,id,localizations,player,snippet,status&channelId=${data.channelId}&maxResults=50`
         if(data.pageToken){
             url+=`&pageToken=${data.pageToken}`
         }
