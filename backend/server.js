@@ -9,6 +9,7 @@ const { notFound, errorHandler } = require("./middlerware/errorMiddleware.js");
 const creatorRoute = require('./routes/creator/creator.route.js')
 const tokenRoute = require('./routes/token/token.route.js')
 const authRouter = require('./routes/Auth/otp.route.js')
+const youtubeVideoRouter = require('./routes/Youtube.API/video.route.js')
 dotenv.config({
     path: "./env"
 });
@@ -28,6 +29,7 @@ app.use('/api/message', messageRoutes)
 app.use('/api/v1/creator',creatorRoute)
 app.use('/api/v1/token',tokenRoute)
 app.use('/api/v1/auth/otp',authRouter)
+app.use('/api/v1/youtube/video',youtubeVideoRouter)
 
 app.use(notFound)
 app.use(errorHandler)
