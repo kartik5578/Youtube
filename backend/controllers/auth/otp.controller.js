@@ -28,7 +28,7 @@ const SendOTP = asyncHandler(async (req, res) => {
   
 
   const mailOptions = {
-    from: "mailerprj32@gmail.com",
+    from: '"Team@Dev" <mailerprj32@gmail.com>',
     to: email,
     subject: "Your OTP Code",
     text: `Your OTP code is ${otp}. It is valid for 10 minutes.`,
