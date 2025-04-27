@@ -15,7 +15,7 @@ const dummyData = Array(12).fill({
 function ChannelList() {
   return (
     <ChakraProvider>
-    <Flex direction={{ base: 'column', md: 'row' }} minH="100vh"  bg="#0C1A11" color="white" px={10}>
+    <Flex direction={{ base: 'column', md: 'row' }} minH="100vh"  bg="#0C1A11" color="white" px={10} pb={10}>
       <Sidebar />
       <Box flex="1" px={10}>
         <Grid
