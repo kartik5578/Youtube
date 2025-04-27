@@ -46,21 +46,15 @@ function ProfileInfoModal({ children }) {
           <ModalCloseButton />
           <ModalBody>
             <FormControl mb={4}>
-              <FormLabel color="rgba(0,0,0,0.4)">Channel Id</FormLabel>
+              <FormLabel  color="rgba(0,0,0,0.4)">Channel Hanndle</FormLabel>
               <Input
                 border="1px solid #00AA66"
                 borderRadius="lg"
+                placeholder="@PhysicsWallah"
                 onChange={(e) => setId(e.target.value)}
               />
             </FormControl>
-            <FormControl>
-              <FormLabel color="rgba(0,0,0,0.4)">Name</FormLabel>
-              <Input
-                border="1px solid #00AA66"
-                borderRadius="lg"
-                onChange={(e) => setName(e.target.value)}
-              />
-            </FormControl>
+           
           </ModalBody>
 
           <ModalFooter>
