@@ -3,9 +3,9 @@ const SCHEMA_DEFINITION_PROPERTY = require('../../constant/schemaConstants')
 const creatorSchema = new Schema({
     creatorId:SCHEMA_DEFINITION_PROPERTY.requiredStringUnique,
     name: SCHEMA_DEFINITION_PROPERTY.requiredString,
-    username: SCHEMA_DEFINITION_PROPERTY.requiredString,
+    username: SCHEMA_DEFINITION_PROPERTY.optionalNullString,
     email: SCHEMA_DEFINITION_PROPERTY.requiredStringUnique,
-    password: SCHEMA_DEFINITION_PROPERTY.requiredString,
+    password: SCHEMA_DEFINITION_PROPERTY.optionalNullString,
     bio: SCHEMA_DEFINITION_PROPERTY.optionalNullString,
     profilePicture:SCHEMA_DEFINITION_PROPERTY.optionalNullString,
     socialLinks: {
@@ -22,6 +22,13 @@ const creatorSchema = new Schema({
         tiktok:SCHEMA_DEFINITION_PROPERTY.optionalNullNumber,
     
     }, 
+    handlers:{
+        youtubehandle:SCHEMA_DEFINITION_PROPERTY.optionalNullString,
+        instagramhandle:SCHEMA_DEFINITION_PROPERTY.optionalNullString,
+        twitterhandle:SCHEMA_DEFINITION_PROPERTY.optionalNullString,
+        tiktokhandle:SCHEMA_DEFINITION_PROPERTY.optionalNullString,
+        
+    },
     verified: SCHEMA_DEFINITION_PROPERTY.optionalBoolean, 
     createdAt: { type: Date, default: Date.now }
 

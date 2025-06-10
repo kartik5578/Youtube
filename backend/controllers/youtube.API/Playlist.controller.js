@@ -1,7 +1,7 @@
-
-const getPlaylits= async(req,res)=>{
+const axios = require('axios');
+const   getPlaylits= async(req,res)=>{
     try{
-        const {data}= req.body
+        const data= req.body
         if(!data.channelId){
             res.status(400).json({
                 success:false,
@@ -37,9 +37,9 @@ const getPlaylits= async(req,res)=>{
     }
 }
 
-const getPlayListItmes=async(req,res)=>{
+const getPlayListItems=async(req,res)=>{
     try{
-        const {data}= req.body
+        const data= req.body
         if(!data.playlistId){
             res.status(400).json({
                 success:false,
@@ -72,3 +72,5 @@ const getPlayListItmes=async(req,res)=>{
     }
     
 }
+
+module.exports={getPlayListItems,getPlaylits}

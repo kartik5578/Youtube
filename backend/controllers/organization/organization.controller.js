@@ -2,9 +2,9 @@ const {
   OrganizationModel,
 } = require("../../models/Organization/organization.schema");
 
-const gerOrganizationProfile = async (req, res) => {
+const getOrganizationProfile = async (req, res) => {
   try {
-    const { data } = req.body;
+    const data  = req.body;
     if (!data) {
       res.status(400).json({
         success: false,
@@ -56,7 +56,7 @@ const gerOrganizationProfile = async (req, res) => {
 
 const addOrganizationProfile = async (req, res) => {
   try {
-    const { data } = req.body;
+    const  data  = req.body;
     if (!data || !data.organizationId || !data.email) {
       res.status(400).json({
         success: false,
@@ -91,15 +91,15 @@ const addOrganizationProfile = async (req, res) => {
 
 const updateOrganizationProfile = async (req, res) => {
   try {
-    const { data } = req.body;
-    if (!data || (!data.organizationId && !data.enail)) {
+    const data  = req.body;
+    if (!data || (!data.organizationId && !data.email)) {
       res.status(400).json({
         success: false,
         error:
           "Not enough information for Updation.OrganizationId or email required",
       });
     }
-    if (data.upateContracts) {
+    if (data.updateContracts) {
       const organizationId = data.organizationId;
       const newOrganizationProfile = await OrganizationModel.findOneAndUpdate(
         { organizationId },
@@ -166,3 +166,5 @@ const updateOrganizationProfile = async (req, res) => {
     });
   }
 };
+
+module.exports={getOrganizationProfile,addOrganizationProfile,updateOrganizationProfile}

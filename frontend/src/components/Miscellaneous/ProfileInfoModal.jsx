@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+
 import {
   Modal,
   ModalOverlay,
@@ -19,10 +21,30 @@ import {
 function ProfileInfoModal({ children }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [id, setId] = useState('');
-  
+  const [name, setName] = useState('');
+  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxMjM0NWFiY2RlIiwiZW1haWwiOiJqb2huZG9lQGV4YW1wbGUuY29tIiwiaWF0IjoxNzQ1NzQ4Nzc2LCJleHAiOjE3NDU3NTIzNzZ9.Ts0H9Oaw8XHxPU91-OA9kzXJAY_Ek9Zb69Vv-FyiuYE'
+  const handleSubmit = async() => {
 
-  const handleSubmit = () => {
     // Submit logic here
+    try{
+    const payload = {
+      forHandle:id
+    }
+    const url = 'http://localhost:5000/api/v1/youtube/channel_info'
+    const res = await axios.post(url,payload,{
+      headers: {
+        'Authorization': `Bearer ${token}`,   
+        'Content-Type': 'application/json'   
+      }
+    }
+    )
+    console.log(res.data)
+  }
+  catch(error){
+    console.log('Error sending POST request:', error)
+    return;
+  }
+
     onClose();
   };
 

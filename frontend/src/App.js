@@ -9,6 +9,7 @@ import YoutuberInfo from "./pages/YoutuberInfo";
 import ChannelList from "./pages/ChannelList";
 import LandingPage from "./pages/LandingPage";
 import ProfilePage from "./pages/ProfilePage";
+import Login from "./components/Authentication/Login"
 
 
 
@@ -22,6 +23,7 @@ function App() {
       <Route path="/" exact><Homepage/></Route>
       <Route path="/chats" exact><ChatPage/></Route>
       <Route path="/Channels" exact><ChannelList/></Route>
+      <Route path ="/login" exact><Login/></Route>
     </div>
     // </Router>
   );
