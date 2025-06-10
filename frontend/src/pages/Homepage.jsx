@@ -14,7 +14,8 @@ function Homepage() {
   })
 
   return (
-    <Container maxW="xl" centerContent>
+    <Box bg="#0C1A11">
+    <Container maxW="xl" centerContent >
         <Box d="flex" justifyContent="centerContent">
             <Text fontSize="4xl"  fontFamily="IBM Plex Mono" fontWeight="Bold">DESIGN WITH US<span color='white'>.</span></Text>
         </Box>
@@ -35,6 +36,8 @@ function Homepage() {
 </Tabs>
         </Box>
     </Container>
+
+    </Box>
   )
 }
 
