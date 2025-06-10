@@ -7,7 +7,7 @@ const contractSchema = new Schema({
     creatorWalletAddress:SCHEMA_DEFINITION_PROPERTY.requiredString,
     organizationId:SCHEMA_DEFINITION_PROPERTY.requiredString,
     creatorId:SCHEMA_DEFINITION_PROPERTY.requiredString,
-    videoUrl:SCHEMA_DEFINITION_PROPERTY.requiredString,
+    videoUrl:SCHEMA_DEFINITION_PROPERTY.optionalNullString,
     deposit:SCHEMA_DEFINITION_PROPERTY.requiredNumber,
     startDate:SCHEMA_DEFINITION_PROPERTY.requiredDate,
     duration:SCHEMA_DEFINITION_PROPERTY.requiredDate,

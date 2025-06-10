@@ -1,12 +1,12 @@
 const { ContractModel } = require("../../models/Contract/contract.schema");
-const { CreatorModel } = require("../../models/Creator/creator.schema");
+
 
 const addContrat = async (req, res) => {
   try {
-    const { data } = req.body;
-    const user = CreatorModel.create(data);
+    const  data = req.body;
+    const user = ContractModel.create(data);
     return res.status(200).json({
-      success: false,
+      success: true,
       data: user,
     });
   } catch (error) {
@@ -26,7 +26,7 @@ const addContrat = async (req, res) => {
 
 const getContract = async (req, res) => {
   try {
-    const { data } = req.body;
+    const  data = req.body;
     if(!data){
         res.satus(400).json({
             success:false,
@@ -63,10 +63,10 @@ const getContract = async (req, res) => {
 
 const updateContract = async(req,res)=>{
     try {
-        const { contractId } = req.body.contractId; 
+        const contractId  = req.body.contractId; 
         const updatedData = req.body.updateData; 
     
-        const updatedContract = await Contract.findOneAndUpdate(
+        const updatedContract = await ContractModel.findOneAndUpdate(
           { contractId },  
           updatedData,    
           { new: true } 
@@ -85,9 +85,11 @@ const updateContract = async(req,res)=>{
         });
       } catch (error) {
         console.error(error);
-        return res.status(500).json({
+        return res.status(500).json({ 
           message: 'Failed to update contract.',
           error: error.message,
         });
       }
 }
+
+module.exports ={addContrat,getContract,updateContract}

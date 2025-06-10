@@ -1,25 +1,35 @@
 
+const axios = require('axios');
 
 const getChannelInfo= async(req,res)=>{
     try{
-        const {data}= req.body
+        const data= req.body
         if(!data.forHandle){
             res.status(400).json({
                 success:false,
                 errro:"Youtube handle is required"
             })
         }
-        const url = `${process.env.YOUTUBE_API_BASE_URL}channels?key=${process.env.YOUTUBE_API_KEY}&part=contentDetails,topicDetails,contentOwnerDetails,statistics,status,brandingSettings,contentDetails&forHandle=${data.forHandle}`
+        const url = `${process.env.YOUTUBE_API_BASE_URL}channels?key=${process.env.YOUTUBE_API_KEY}&part=contentDetails,topicDetails,contentOwnerDetails,statistics,status,brandingSettings,contentDetails,snippet&forHandle=${data.forHandle}`
         const config = {
             headers: {
                 'Content-Type': 'application/json',
               },
         }
         const youtubeRes = await axios.get(url) 
+        const channelInfo=youtubeRes.data.items[0]
+
         if(youtubeRes.status==200){
             return res.status(200).json({
                 success:true,
-                data:youtubeRes.data
+                data:{
+                    name:channelInfo.snippet.title,
+                    description:channelInfo.snippet.description,
+                    photo:channelInfo.snippet.thumbnails.medium.url,
+                    subscribers:channelInfo.statistics.subscriberCount,
+                    avgViews:Math.round(channelInfo.statistics.viewCount/channelInfo.statistics.videoCount),
+                    videos:channelInfo.statistics.videoCount
+                }
             })
         }
         return res.status(400).json({
@@ -34,3 +44,5 @@ const getChannelInfo= async(req,res)=>{
         })
     }
 }
+
+module.exports={getChannelInfo}

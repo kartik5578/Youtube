@@ -1,7 +1,60 @@
 const { asyncHandler } = require("../../Handlers/asyncHandler");
 const nodemailer = require('nodemailer');
+const brcyptjs = require('bcryptjs');
 const crypto = require('crypto');
+const bcryptjs = require("bcryptjs");
+const numSaltRounds = 4
 let otptocheck;
+
+
+ async function generateAccessToken(email) {
+  return await jwt.sign({ email }, process.env.ACCESS_SECRET, { expiresIn: '15m' });
+}
+
+async function generateRefreshToken(email) {
+  return await jwt.sign({ email }, process.env.REFRESH_SECRET, { expiresIn: '14d' });
+}
+
+const getRefreshandAccessToken= asyncHandler(async (req,res) => {
+  const {email} = req.body
+  const accessToken = await generateAccessToken(email);
+  const refreshToken = await generateRefreshToken(email);
+   res.cookie('refreshToken', refreshToken, {
+    httpOnly: true,
+    secure: false, 
+    sameSite: 'lax',
+    maxAge: 14 * 24 * 60 * 60 * 1000, 
+  });
+
+  res.json({ accessToken });
+});
+
+
+const refreshToken=asyncHandler(async(req, res) => {
+  const token = req.cookies.refreshToken;
+
+  if (!token) return res.status(401).json({ error: 'No refresh token provided' });
+
+  try {
+    const payload = jwt.verify(token, REFRESH_SECRET);
+    const accessToken = generateAccessToken(payload.email);
+    const refreshToken = generateRefreshToken(payload.email);
+
+  
+    res.cookie('refreshToken', refreshToken, {
+      httpOnly: true,
+      secure: false,
+      sameSite: 'lax',
+      maxAge: 14* 24 * 60 * 60 * 1000,
+    });
+
+    res.json({ accessToken });
+  } catch (e) {
+    return res.status(403).json({ error: 'Invalid refresh token' });
+  }
+})
+
+
 const SendOTP = asyncHandler(async (req, res) => {
   const { email } = req.body;
 
@@ -34,9 +87,11 @@ const SendOTP = asyncHandler(async (req, res) => {
     text: `Your OTP code is ${otp}. It is valid for 10 minutes.`,
   };
 
+  const hashedOtp = await bcryptjs.hash(otp,numSaltRounds)
+ 
   try {
     await transporter.sendMail(mailOptions);
-    res.status(200).send({ message: "OTP sent successfully", email ,otp:otp});
+    res.status(200).send({ message: "OTP sent successfully", email ,otp:hashedOtp});
   } catch (error) {
     console.error("Error sending OTP:", error);
     res.status(500).send({ message: "Error sending OTP", error });
@@ -66,4 +121,4 @@ catch(error){
 }
 });
 
-module.exports= { SendOTP, VerifyOTP, otptocheck };
+module.exports= { SendOTP, VerifyOTP, otptocheck , refreshToken, getRefreshandAccessToken};

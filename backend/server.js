@@ -10,14 +10,18 @@ const creatorRoute = require('./routes/creator/creator.route.js')
 const tokenRoute = require('./routes/token/token.route.js')
 const authRouter = require('./routes/Auth/otp.route.js')
 const youtubeVideoRouter = require('./routes/Youtube.API/video.route.js')
+const organizationRouter=require('./routes/organization/organization.route.js')
+const contractRouter = require('./routes/contracts/contracts.route.js')
 dotenv.config({
     path: "./env"
 });
+const cors = require('cors');
+
 
 const app = express();
 connectDB();
 app.use(express.json());
-
+app.use(cors());
 
 app.get('/', (req, res)=>{
     res.send("API is also running")
@@ -29,7 +33,9 @@ app.use('/api/message', messageRoutes)
 app.use('/api/v1/creator',creatorRoute)
 app.use('/api/v1/token',tokenRoute)
 app.use('/api/v1/auth/otp',authRouter)
-app.use('/api/v1/youtube/video',youtubeVideoRouter)
+app.use('/api/v1/youtube/',youtubeVideoRouter)
+app.use('/api/v1/organization/',organizationRouter)
+app.use('/api/v1/contract/',contractRouter)
 
 app.use(notFound)
 app.use(errorHandler)
