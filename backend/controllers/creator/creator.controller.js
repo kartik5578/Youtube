@@ -1,4 +1,5 @@
 const { CreatorModel } = require("../../models/Creator/creator.schema");
+const axios = require('axios');
 
 const getCreatorList = async (req, res) => {
   try {
@@ -7,14 +8,55 @@ const getCreatorList = async (req, res) => {
     const pageSize = 10;
 
     number = parseInt(number) || 0;
-    const creators = await CreatorModel.find().skip(number).limit(pageSize);
+    const creators = await CreatorModel.find()
+      .skip(number)
+      .limit(50)
+      .select({ handlers: 1 });
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    const channelInformation = [];
+    
+
+for (const channel of creators) {
+  const url = `${process.env.YOUTUBE_API_BASE_URL}channels?key=${process.env.YOUTUBE_API_KEY}&part=contentDetails,topicDetails,contentOwnerDetails,statistics,status,brandingSettings,contentDetails,snippet&forHandle=${channel.handlers.youtubehandle}`;
+
+  try {
+    const youtubeRes = await axios.get(url);
+    const channelInfo = youtubeRes.data.items[0];
+
+    if (youtubeRes.status === 200 && channelInfo) {
+      const data = {
+        username: channelInfo.snippet.title,
+        description: channelInfo.snippet.description,
+        photo: channelInfo.snippet.thumbnails.medium.url,
+        subscribers: channelInfo.statistics.subscriberCount,
+        averageViews: Math.round(channelInfo.statistics.viewCount / channelInfo.statistics.videoCount),
+        videos: channelInfo.statistics.videoCount,
+        handle:channel.handlers.youtubehandle
+      };
+
+      channelInformation.push(data);
+    }
+  } catch (error) {
+    console.error(`Failed to fetch info for ${channel.handlers.youtubehandle}:`, error.message);
+    continue;
+  }
+}
+
+
+
+    
+    
 
     res.status(200).json({
       success: true,
-      data: creators,
+      data: channelInformation,
       nextNumber: creators.length === pageSize ? number + pageSize : null,
     });
-  } catch(error) {
+  } catch (error) {
     console.log("Error retreving Creators:", error);
     return res.status(500).json({
       success: false,
@@ -43,7 +85,7 @@ const getCreator = async (req, res) => {
       success: true,
       data: creator,
     });
-  }catch(error) {
+  } catch (error) {
     console.log("Error retreving Creator Infomation:", error);
     return res.status(500).json({
       success: false,
@@ -53,7 +95,6 @@ const getCreator = async (req, res) => {
 };
 
 const addCreator = async (req, res) => {
-  const { data } = req.body;
   try {
     const { data } = req.body;
     if (!data.creatorId) {

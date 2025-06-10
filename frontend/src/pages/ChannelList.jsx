@@ -1,18 +1,60 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { ChakraProvider, Box, Grid, Flex } from '@chakra-ui/react';
 import Sidebar from '../components/Helper/SideBar';
 import ChannelCard from '../components/Helper/ChannelCard';
-
-
-const dummyData = Array(12).fill({
-    username: '@Mr.Beast',
-    niche: 'Entertainment',
-    subscribers: '100,000+',
-    averageViews: '3M - 10M',
-  });
   
 
 function ChannelList() {
+ const [dummyData, setDummyData] = useState([]);
+  useEffect(() => {
+    getData();
+  }, []);
+
+const getData = async () => {
+    const url = "http://localhost:5000/api/v1/creator/getcreators";
+
+    try {
+      const gethash = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          'Authorization':
+            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxMjM0NWFiY2RlIiwiZW1haWwiOiJqb2huZG9lQGV4YW1wbGUuY29tIiwiaWF0IjoxNzQ5NTg1NjMzLCJleHAiOjE3NDk1ODkyMzN9.xFrZFVUZVijdtU6HVEkp5v0SRawKQyh7BdVf__qDZgg",
+        },
+        body: JSON.stringify({ forHandle: "@PhysicsWallah" }),
+      });
+
+      const data = await gethash.json();
+      console.log(data)
+
+      if (!gethash.ok) {
+        if (gethash.status === 401) {
+          throw new Error("Unauthorized: Please log in again.");
+        } else if (gethash.status === 403) {
+          throw new Error("Forbidden: You don’t have access.");
+        } else {
+          throw new Error(data.message || "Something went wrong.");
+        }
+      }
+
+      // const creatordata = {
+      //   username: data.data.username,
+      //   description: data.data.description,
+      //   subscribers: data.data.subscribers,
+      //   averageViews: data.data.averageViews,
+      //   videos: data.data.videos,
+      //   photo: data.data.photo,
+      // };
+
+      setDummyData((prev) => [...data.data]);
+      console.log(dummyData)
+    } catch (error) {
+      console.error("Error fetching data:", error.message);
+    }
+  };
+
+  
+  
   return (
     <ChakraProvider>
     <Flex direction={{ base: 'column', md: 'row' }} minH="100vh"  bg="#0C1A11" color="white" px={10} pb={10}>
@@ -23,7 +65,7 @@ function ChannelList() {
           gap={6}
         >
           {dummyData.map((channel, index) => (
-            <ChannelCard key={index} {...channel} />
+            <ChannelCard key={index} {...channel}/>
           ))}
         </Grid>
       </Box>
