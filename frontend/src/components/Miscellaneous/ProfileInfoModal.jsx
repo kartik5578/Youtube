@@ -24,6 +24,7 @@ function ProfileInfoModal({ children }) {
   const [name, setName] = useState('');
   const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxMjM0NWFiY2RlIiwiZW1haWwiOiJqb2huZG9lQGV4YW1wbGUuY29tIiwiaWF0IjoxNzQ1NzQ4Nzc2LCJleHAiOjE3NDU3NTIzNzZ9.Ts0H9Oaw8XHxPU91-OA9kzXJAY_Ek9Zb69Vv-FyiuYE'
   const handleSubmit = async() => {
+
     // Submit logic here
     try{
     const payload = {
