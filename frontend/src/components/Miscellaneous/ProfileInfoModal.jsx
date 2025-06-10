@@ -19,7 +19,7 @@ import {
 function ProfileInfoModal({ children }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [id, setId] = useState('');
-  const [name, setName] = useState('');
+  
 
   const handleSubmit = () => {
     // Submit logic here
