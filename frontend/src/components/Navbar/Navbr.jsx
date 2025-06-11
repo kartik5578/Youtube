@@ -37,7 +37,7 @@ function Navbr() {
       <Link to="/home" className="" as={Link}>Home</Link>
       <Link to="/Channels" className="" >YouTube Channels</Link>
       <Link to="/chats" className="">Chat</Link>
-      <Link to="/Profile" className="">Profiles</Link>
+      {/* <Link to="/Profile" className="">Profiles</Link> */}
       <Button color={'white'} backgroundColor={'green'} onClick={connectWallet}>
       {account ? "Connected: " + account.substring(0, 4) + "..." + account.substring(account.length - 4) : "Connect Wallet"}
       </Button>

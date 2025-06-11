@@ -5,6 +5,7 @@ const userSchema = mongoose.Schema({
     name :{type: String, required: true},
     email: {type: String, required: true, unique: true},
     password: {type: String, required: true},
+    userType:{type: String, required: true},
     pic:{
         type: String,
         default:"https://img.freepik.com/free-vector/hand-drawn-nft-style-ape-illustration_23-2149622021.jpg?w=740&t=st=1718537225~exp=1718537825~hmac=84e6865b6173c613533f72428307a67281effeaaa494f8f8796bfd6ae36cb517"

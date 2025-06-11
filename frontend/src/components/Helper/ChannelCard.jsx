@@ -7,12 +7,12 @@ import {
   VStack,
   Button,
 } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 
-const ChannelCard = () => {
+const ChannelCard = ({ username, photo, niche, subscribers, averageViews , description, handle}) => {
   return (
     <Box
       w="250px"
-
       bgGradient="linear(to-b,rgba(43, 255, 255, 0.12) 0%, rgba(43, 255, 255, 0.04) 50%, rgba(43, 255, 255, 0.07) 100%)"
       _hover={{
         bgImage: `
@@ -21,9 +21,8 @@ const ChannelCard = () => {
         `,
         bgSize: "cover",
         bgPosition: "center",
-        borderColor: "teal"
+        borderColor: "teal",
       }}
-
       borderRadius="xl"
       p={5}
       color="white"
@@ -34,14 +33,14 @@ const ChannelCard = () => {
     >
       <Avatar
         size="xl"
-        name="Mr. Beast"
-        src="https://i.ibb.co/jMLxZ9T/monkey-avatar.png" // Replace with your image source
+        name={username}
+        src={photo}
         mx="auto"
         mb={3}
       />
 
-      <Text fontWeight={'normal'} color="#02C173" mb={2}>
-        @Mr. Beast
+      <Text fontWeight="normal" color="#02C173" mb={2}>
+        {username}
       </Text>
 
       <Divider borderColor="whiteAlpha.300" mb={4} />
@@ -49,40 +48,40 @@ const ChannelCard = () => {
       <VStack align="start" spacing={2} fontSize="sm">
         <Text>
           <Text as="span" color="#02C173" fontWeight="semibold">
-            Niche:
+            Handle:
           </Text>{" "}
-          Entertainment
+          {handle || "N/A"}
         </Text>
         <Text>
           <Text as="span" color="#02C173" fontWeight="semibold">
             Subscribers:
           </Text>{" "}
-          100,000+
+          {subscribers || "Unknown"}
         </Text>
         <Text>
           <Text as="span" color="#02C173" fontWeight="semibold">
             Average Views:
           </Text>{" "}
-          3M - 10M
+          {averageViews || "Unknown"}
         </Text>
       </VStack>
 
-      <Button
-        mt={6}
-        size="sm"
-        variant="outline"
-        borderColor="green"
-        color="#02C173"
-        px={5}
-        _hover={{ bg: "green", color: "white" }}
-      >
-        OPEN
-      </Button>
+    
+     <Link to={`/youtuber/${handle}`}>
+  <Button
+    mt={6}
+    size="sm"
+    variant="outline"
+    borderColor="green"
+    color="#02C173"
+    px={5}
+    _hover={{ bg: "green", color: "white" }}
+  >
+    OPEN
+  </Button>
+  </Link>
     </Box>
   );
 };
 
 export default ChannelCard;
-
-
-

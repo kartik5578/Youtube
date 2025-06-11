@@ -24,11 +24,11 @@ const KoalaLandingPage = () => {
         {/* Left Section */}
         <VStack align="start" spacing={6} maxW="lg">
           <Heading as="h1" size="3xl" lineHeight="short">
-            KOALA <Text as="span" color="green.400">INTELLIGENCE</Text> AGENCY
+            YOUTUBE <Text as="span" color="green.400">CREATORS</Text> AGENCY
           </Heading>
           <Text fontSize="md" color="gray.300">
-            A collection of 10,000 worldly Koalas each with their unique skillsets.
-            Their mission is to protect the world from evil.
+           Find  the creators that best suits your company without need to pay
+        much with ease of few clicks.
           </Text>
           <Box
             borderRadius="full"
@@ -41,7 +41,7 @@ const KoalaLandingPage = () => {
             transition="all 0.3s ease"
             _hover={{ bg: "green.400", color: "black" }}
           >
-            EXPLORE ARTWORKS
+            Find Creators
           </Box>
         </VStack>
 
