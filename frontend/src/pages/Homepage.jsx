@@ -17,7 +17,7 @@ function Homepage() {
     <Box bg="#0C1A11">
     <Container maxW="xl" centerContent >
         <Box d="flex" justifyContent="centerContent">
-            <Text fontSize="4xl"  fontFamily="IBM Plex Mono" fontWeight="Bold">DESIGN WITH US<span color='white'>.</span></Text>
+            <Text fontSize="4xl"  fontFamily="IBM Plex Mono" fontWeight="Bold">Connect With Creatores<span color='white'>.</span></Text>
         </Box>
         <Box w="100%" p={4} borderRadius='lg' borderWidth="1px">
         <Tabs variant='soft-rounded' colorScheme='green'>

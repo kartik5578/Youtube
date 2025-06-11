@@ -46,11 +46,6 @@ for (const channel of creators) {
   }
 }
 
-
-
-    
-    
-
     res.status(200).json({
       success: true,
       data: channelInformation,
@@ -128,4 +123,64 @@ const addCreator = async (req, res) => {
   }
 };
 
-module.exports = { getCreatorList, getCreator, addCreator };
+const getCreatorUsingHandle = async (req, res) => {
+  try {
+    const { creatorHandle } = req.params;
+    if (!creatorHandle) {
+      return res.status(400).json({
+        success: false,
+        error: "CreatorID required",
+      });
+    }
+    console.log(creatorHandle);
+    const url = `${process.env.YOUTUBE_API_BASE_URL}channels?key=${process.env.YOUTUBE_API_KEY}&part=contentDetails,topicDetails,contentOwnerDetails,statistics,status,brandingSettings,contentDetails,snippet&forHandle=${creatorHandle}`;
+
+    let data ={}
+    const youtubeRes = await axios.get(url);
+    const channelInfo = youtubeRes.data.items[0];
+
+    if (youtubeRes.status === 200 && channelInfo) {
+       data = {
+        username: channelInfo.snippet.title,
+        description: channelInfo.snippet.description,
+        photo: channelInfo.snippet.thumbnails.medium.url,
+        subscribers: channelInfo.statistics.subscriberCount,
+        averageViews: Math.round(channelInfo.statistics.viewCount / channelInfo.statistics.videoCount),
+        videos: channelInfo.statistics.videoCount,
+        handle:creatorHandle,
+        Views:channelInfo.statistics.viewCount
+      };
+
+    }
+    else{
+       throw new Error('Something went wrong fetching channel Info!');
+    }
+    const videoURl =`https://www.googleapis.com/youtube/v3/playlists?key=${process.env.YOUTUBE_API_KEY}&part=contentDetails,id,localizations,player,snippet,status&channelId=${channelInfo.id}&maxResults=5`
+    console.log(videoURl);
+    const videoRes = await axios.get(videoURl)
+    let VideoData = videoRes.data.items
+     if (videoRes.status === 200 && VideoData) {
+   VideoData = VideoData.map((Playlist) => Playlist.player.embedHtml);
+   data.Video=VideoData
+     return res.status(200).json({
+      success: true,
+      data: data,
+    });
+  }
+  else{
+    res.status(404).json({
+      success:false,
+      error:"Videos Not found"
+    })
+  }
+        
+  } catch (error) {
+    console.log("Error retreving Creator Infomation:", error);
+    return res.status(500).json({
+      success: false,
+      error: "Internal Server Error",
+    });
+  }
+};
+
+module.exports = { getCreatorList, getCreator, addCreator,getCreatorUsingHandle};

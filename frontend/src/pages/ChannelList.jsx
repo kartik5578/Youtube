@@ -19,7 +19,7 @@ const getData = async () => {
         headers: {
           "Content-Type": "application/json",
           'Authorization':
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxMjM0NWFiY2RlIiwiZW1haWwiOiJqb2huZG9lQGV4YW1wbGUuY29tIiwiaWF0IjoxNzQ5NTg1NjMzLCJleHAiOjE3NDk1ODkyMzN9.xFrZFVUZVijdtU6HVEkp5v0SRawKQyh7BdVf__qDZgg",
+            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxMjM0NWFiY2RlIiwiZW1haWwiOiJqb2huZG9lQGV4YW1wbGUuY29tIiwiaWF0IjoxNzQ5NjEzOTE2LCJleHAiOjE3NDk2MTc1MTZ9.Tms1Un3MDktiYFJ3wBFU-ERBkpIQmJm1z3aDczuG4LM",
         },
         body: JSON.stringify({ forHandle: "@PhysicsWallah" }),
       });

@@ -14,6 +14,8 @@ import {
   import React, { useState } from 'react'
   import axios from 'axios'
   import { useHistory } from "react-router-dom"
+  import { v4 as uuidv4 } from 'uuid';
+
   
   function Signup() {
     const CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/dusjvype1/image/upload";
@@ -82,88 +84,193 @@ import {
         return;
       }
     }
-  
-    const handleSubmit = async () => {
-      setLoading(true);
-      if (!name || !email || !password || !confirmpassword) {
-        toast({
-          title: "Please fill all Fields!",
-          status: "warning",
-          duration: 5000,
-          isClosable: true,
-          position: "top",
-        });
-        setLoading(false);
-        return;
-      }
-  
-      if (password !== confirmpassword) {
-        toast({
-          title: "Password and Confirm Password does not match",
-          status: "warning",
-          duration: 5000,
-          isClosable: true,
-          position: "top",
-        });
-        setLoading(false);
-        return;
-      }
-  
-      try {
-        const config = {
-          headers: {
-            "Content-type": "application/json",
-          },
-        }
-  
-        const payload = {
+
+  const handleSubmit = async () => {
+  setLoading(true);
+
+  if (!name || !email || !password || !confirmpassword) {
+    toast({
+      title: "Please fill all Fields!",
+      status: "warning",
+      duration: 5000,
+      isClosable: true,
+      position: "top",
+    });
+    setLoading(false);
+    return;
+  }
+
+  if (password !== confirmpassword) {
+    toast({
+      title: "Password and Confirm Password does not match",
+      status: "warning",
+      duration: 5000,
+      isClosable: true,
+      position: "top",
+    });
+    setLoading(false);
+    return;
+  }
+
+  try {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    // POST to /api/user - your user system
+    const { data: userResponse } = await axios.post(
+      "/api/user",
+      { name, email, password, pic, userType },
+      config
+    );
+
+    // Only proceed if userType is 'creator'
+    if (userType === 'creator') {
+      const creatorPayload = {
+        data: {
+          creatorId: uuidv4(),// or generate one if needed
           name,
+          username: creatorhandle || name.toLowerCase().replace(/\s/g, ""),
           email,
           password,
-          pic,
-        };
-  
-        const { data } = await axios.post("/api/user", payload, config);
-
-        const paydata = {
-            name,
-            email,
-            password,
-            youtubeLink,
-            instagramLink,
-            metaLink
+          bio: "This is a sample bio description.",
+          profilePicture: pic || "https://example.com/default.jpg",
+          socialLinks: {
+            youtube: youtubeLink,
+            instagram: instagramLink,
+            twitter: "",
+            tiktok: ""
+          },
+          handlers: {
+            youtubehandle: creatorhandle
+          },
+          contentCategories: "Tech, Tutorials, Vlogs",
+          followersCount: {
+            youtube: 0,
+            instagram: 0,
+            twitter: 0,
+            tiktok: 0
+          },
+          verified: false,
+          createdAt: new Date().toISOString()
         }
+      };
 
-        if (userType === 'creator') {
-            payload.youtubeLink = youtubeLink;
-            payload.instagramLink = instagramLink;
-            payload.metaLink = metaLink;
-        }
-  
-        toast({
-          title: "Registered Successfully",
-          status: "success",
-          duration: 5000,
-          isClosable: true,
-          position: "top"
-        });
-  
-        localStorage.setItem("userInfo", JSON.stringify(data));
-  
-        setLoading(false);
-        history.push("/home")
-      } catch (err) {
-        toast({
-          title: "Error",
-          description: err.response?.data?.message || err.message,
-          status: "error",
-          duration: 5000,
-          isClosable: true,
-          position: "top"
-        });
-        setLoading(false);
-      }
+      await axios.post(
+        "http://localhost:5000/api/v1/creator/addcreator",
+        creatorPayload,
+        config
+      );
     }
+
+    toast({
+      title: "Registered Successfully",
+      status: "success",
+      duration: 5000,
+      isClosable: true,
+      position: "top"
+    });
+
+    localStorage.setItem("userInfo", JSON.stringify(userResponse));
+    setLoading(false);
+    history.push("/home");
+
+  } catch (err) {
+    toast({
+      title: "Error",
+      description: err.response?.data?.message || err.message,
+      status: "error",
+      duration: 5000,
+      isClosable: true,
+      position: "top"
+    });
+    setLoading(false);
+  }
+};
+
+    // const handleSubmit = async () => {
+    //   setLoading(true);
+    //   if (!name || !email || !password || !confirmpassword) {
+    //     toast({
+    //       title: "Please fill all Fields!",
+    //       status: "warning",
+    //       duration: 5000,
+    //       isClosable: true,
+    //       position: "top",
+    //     });
+    //     setLoading(false);
+    //     return;
+    //   }
+  
+    //   if (password !== confirmpassword) {
+    //     toast({
+    //       title: "Password and Confirm Password does not match",
+    //       status: "warning",
+    //       duration: 5000,
+    //       isClosable: true,
+    //       position: "top",
+    //     });
+    //     setLoading(false);
+    //     return;
+    //   }
+  
+    //   try {
+    //     const config = {
+    //       headers: {
+    //         "Content-type": "application/json",
+    //       },
+    //     }
+  
+    //     const payload = {
+    //       name,
+    //       email,
+    //       password,
+    //       pic,
+    //     };
+  
+    //     const { data } = await axios.post("/api/user", payload, config);
+
+    //     const paydata = {
+    //         name,
+    //         email,
+    //         password,
+    //         youtubeLink,
+    //         instagramLink,
+    //         metaLink
+    //     }
+
+    //     if (userType === 'creator') {
+    //         payload.youtubeLink = youtubeLink;
+    //         payload.instagramLink = instagramLink;
+    //         payload.metaLink = metaLink;
+    //     }
+  
+    //     toast({
+    //       title: "Registered Successfully",
+    //       status: "success",
+    //       duration: 5000,
+    //       isClosable: true,
+    //       position: "top"
+    //     });
+  
+    //     localStorage.setItem("userInfo", JSON.stringify(data));
+  
+    //     setLoading(false);
+    //     history.push("/home")
+    //   } catch (err) {
+    //     toast({
+    //       title: "Error",
+    //       description: err.response?.data?.message || err.message,
+    //       status: "error",
+    //       duration: 5000,
+    //       isClosable: true,
+    //       position: "top"
+    //     });
+    //     setLoading(false);
+    //   }
+    // }
   
     return (
       <VStack spacing="10px">
